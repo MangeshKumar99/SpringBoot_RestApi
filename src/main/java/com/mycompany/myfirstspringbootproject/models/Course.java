@@ -1,6 +1,11 @@
 package com.mycompany.myfirstspringbootproject.models;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "Course")
 public class Course {
+    @Id
     private String courseName;
     private Integer courseId;
     private String instructorName;

@@ -3,6 +3,7 @@ package com.mycompany.myfirstspringbootproject.controller;
 import java.util.List;
 
 import com.mycompany.myfirstspringbootproject.models.Course;
+import com.mycompany.myfirstspringbootproject.repository.CourseRepository;
 import com.mycompany.myfirstspringbootproject.services.CourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CourseController {
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private CourseRepository repository;
 
     @GetMapping("/course")
     public Course getCourse() {
@@ -53,6 +56,15 @@ public class CourseController {
     @PostMapping("/addcourse")
     public List<Course> addCourse(@RequestBody Course course) {
         return courseService.addCourse(course);
+    }
+    @PostMapping("/addcourseindb")
+    public String addCourseInDB(@RequestBody Course course) {
+        repository.save(course);
+        return "Course added";
+    }
+    @GetMapping("/coursefromdb")
+    public List<Course> getCourseFromDB() {
+        return repository.findAll();
     }
 
 }
